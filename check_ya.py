@@ -9,6 +9,10 @@ import email
 from email.header import decode_header
 
 import telebot
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 
 TG_BOT_TOKEN = os.environ.get('TG_BOT_TOKEN')
@@ -78,7 +82,10 @@ def make_text_from_emails(list_data, imap):
         mfrom = decode_header(email_message['From'])
         if mfrom[0][1]:
             mencoding = mfrom[0][1]
-            mfrom = mfrom[0][0].decode(mencoding)
+            try:
+                mfrom = mfrom[0][0].decode(mencoding)
+            except LookupError:
+                mfrom = '(decode error)'
         else:
             mencoding = 'ascii'
             mfrom = mfrom[0][0]
