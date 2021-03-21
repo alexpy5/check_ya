@@ -65,7 +65,7 @@ def check_yandex_mail(last_id):
 
 
 def make_text_from_emails(list_data, imap):
-    text_from_emails = '\n# New emails\n\n'
+    text_from_emails = f'\n# New emails in {YANDEX_LOGIN}\n\n'
     for id_num in list_data:
         bstr = id_num.encode()
         result, data = imap.uid('fetch', bstr, '(RFC822)')
