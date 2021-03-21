@@ -76,7 +76,10 @@ def make_text_from_emails(list_data, imap):
             subj = decode_header(email_message['Subject'])
             if subj[0][1]:
                 encoding = subj[0][1]
-                subj = subj[0][0].decode(encoding)
+                try:
+                    subj = subj[0][0].decode(encoding)
+                except LookupError:
+                    subj = '(decode error)'
             else:
                 subj = subj[0][0]
         mfrom = decode_header(email_message['From'])
